@@ -20,9 +20,11 @@ public class DemoApplication {
 	public DataSource dataSource() throws URISyntaxException {
 		
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));
-		
+		System.out.println("Uri: " + dbUri.toString());
 		String username = dbUri.getUserInfo().split(":")[0];
+		System.out.println("Username: " + username);
 		String password = dbUri.getUserInfo().split(":")[1];
+		System.out.println("Password: " + password);
 		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ":" + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
 
 		return DataSourceBuilder.create()
