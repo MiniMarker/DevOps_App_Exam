@@ -6,5 +6,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+
+graphite:
+  host: ${GRAPHITE_HOST}
+  apiKey: ${HOSTEDGRAPHITE_APIKEY}
+
 server:
   port: ${PORT}
+

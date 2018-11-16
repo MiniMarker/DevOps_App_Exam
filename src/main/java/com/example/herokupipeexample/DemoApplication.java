@@ -4,6 +4,7 @@ import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.graphite.Graphite;
 import com.codahale.metrics.graphite.GraphiteReporter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -20,6 +21,12 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @SpringBootApplication
 public class DemoApplication {
+	
+	@Value("${graphite.host}")
+	private String graphiteHost;
+	
+	@Value("${graphite.apiKey}")
+	private String graphiteApiKey;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
@@ -49,8 +56,12 @@ public class DemoApplication {
 	@Bean
 	public GraphiteReporter getReporter(MetricRegistry registry) {
 		Graphite graphite = new Graphite(new InetSocketAddress(System.getenv("GRAPHITE_HOST"), 2003));
+		
+		System.out.println("Passed host: " + graphiteHost);
+		System.out.println("Passed apiKey: " + graphiteApiKey);
+		
 		GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
-				.prefixedWith(System.getenv("HOSTEDGRAPHITE_APIKEY"))
+				.prefixedWith(System.getenv("GRAPHITE_APIKEY"))
 				.convertRatesTo(TimeUnit.SECONDS)
 				.convertDurationsTo(TimeUnit.MILLISECONDS)
 				.filter(MetricFilter.ALL)
