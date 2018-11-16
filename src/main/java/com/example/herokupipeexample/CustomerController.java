@@ -31,6 +31,7 @@ public class CustomerController {
 
     @RequestMapping("/list")
     public List<Customer> find(@RequestParam(value="lastName") String lastName) {
+        registry.meter("list").mark();
         return customerRepository.findByLastName(lastName);
     }
 
