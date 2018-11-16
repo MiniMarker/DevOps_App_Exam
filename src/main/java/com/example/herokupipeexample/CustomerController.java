@@ -20,11 +20,11 @@ public class CustomerController {
       this.customerRepository = customerRepository;
     }
     
-    @Autowired
-    private MetricRegistry registry;
+    private MetricRegistry registry = new MetricRegistry();
 
     @RequestMapping("/")
     public String welcome() {
+        registry.counter("welcome1").inc();
         registry.meter("welcome").mark();
         System.out.println("Entered root page");
         return "Welcome to this small REST service. It will accept a GET on /list with a request parameter lastName, and a POST to / with a JSON payload with firstName and lastName as values.";
