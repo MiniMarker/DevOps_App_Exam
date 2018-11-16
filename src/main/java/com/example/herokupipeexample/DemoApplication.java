@@ -1,5 +1,9 @@
 package com.example.herokupipeexample;
 
+import com.codahale.metrics.MetricFilter;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.graphite.Graphite;
+import com.codahale.metrics.graphite.GraphiteReporter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -8,33 +12,26 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 @SpringBootApplication
 public class DemoApplication {
 	
-	
-	/*
-	URI:        postgres://cynzpiozskmril:0a48d79a9fa96a872915cb5eb1b920b273bd7022ad269fbf5071805c12908ba6@ec2-79-125-124-30.eu-west-1.compute.amazonaws.com:5432/dcbtgk1u06j8eo
-	USER:       cynzpiozskmril
-	PASSWORD:   0a48d79a9fa96a872915cb5eb1b920b273bd7022ad269fbf5071805c12908ba6
-	 */
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+	}
 	
 	@Bean
 	@Primary
 	public DataSource dataSource() throws URISyntaxException {
 		
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));
-		System.out.println("Uri: " + dbUri.toString());
-		System.out.println("Uri.host: " + dbUri.getPath());
-		System.out.println("Uri.port " + dbUri.getPort());
-		System.out.println("Uri.path: " + dbUri.getPath());
 		String username = dbUri.getUserInfo().split(":")[0];
-		System.out.println("Username: " + username);
 		String password = dbUri.getUserInfo().split(":")[1];
-		System.out.println("Password: " + password);
 		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ":" + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
 
 		return DataSourceBuilder.create()
@@ -43,8 +40,22 @@ public class DemoApplication {
 				.password(password)
 				.build();
 	}
-
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+	
+	@Bean
+	public MetricRegistry getRegistry() {
+		return new MetricRegistry();
+	}
+	
+	@Bean
+	public GraphiteReporter getReporter(MetricRegistry registry) {
+		Graphite graphite = new Graphite(new InetSocketAddress(System.getenv("GRAPHITE_HOST"), 2003));
+		GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
+				.prefixedWith(System.getenv("HOSTEDGRAPHITE_APIKEY"))
+				.convertRatesTo(TimeUnit.SECONDS)
+				.convertDurationsTo(TimeUnit.MILLISECONDS)
+				.filter(MetricFilter.ALL)
+				.build(graphite);
+		reporter.start(1, TimeUnit.SECONDS);
+		return reporter;
 	}
 }

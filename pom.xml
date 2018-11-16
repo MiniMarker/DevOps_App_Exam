@@ -36,6 +36,19 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- METRICS -->
+		<dependency>
+			<groupId>io.dropwizard.metrics</groupId>
+			<artifactId>metrics-core</artifactId>
+			<version>4.0.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.dropwizard.metrics</groupId>
+			<artifactId>metrics-graphite</artifactId>
+			<version>4.0.3</version>
+		</dependency>
+
 		<!-- TEST -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
