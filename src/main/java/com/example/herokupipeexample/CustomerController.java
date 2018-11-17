@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
 
     private CustomerRepository customerRepository;
-	private Meter meter;
+	//private Meter meter;
 
     @Autowired
     public CustomerController(CustomerRepository customerRepository, MetricRegistry mark) {
       this.customerRepository = customerRepository;
-      this.meter = mark.meter("name");
+      //this.meter = mark.meter("name");
       
     }
 
     @RequestMapping("/")
     public String welcome() {
-    	meter.mark();
+    	//meter.mark();
         return "Welcome to this small REST service. It will accept a GET on /list with a request parameter lastName, and a POST to / with a JSON payload with firstName and lastName as values.";
     }
 
