@@ -28,7 +28,7 @@ public class CustomerController {
       
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<String> welcome() {
     	
 	    int time = r.nextInt(3000);
