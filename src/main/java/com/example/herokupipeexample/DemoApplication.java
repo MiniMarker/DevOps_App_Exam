@@ -57,8 +57,8 @@ public class DemoApplication {
 	public GraphiteReporter getReporter(MetricRegistry registry) {
 		Graphite graphite = new Graphite(new InetSocketAddress(System.getenv("GRAPHITE_HOST"), 2003));
 		
-		System.out.println("Passed host: " + System.getenv("GRAPHITE_HOST"));
-		System.out.println("Passed apiKey: " + System.getenv("GRAPHITE_APIKEY"));
+		//System.out.println("Passed host: " + System.getenv("GRAPHITE_HOST"));
+		//System.out.println("Passed apiKey: " + System.getenv("GRAPHITE_APIKEY"));
 		
 		GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
 				.prefixedWith(System.getenv("GRAPHITE_APIKEY"))

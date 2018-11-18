@@ -3,11 +3,14 @@ package com.example.herokupipeexample;
 import java.util.List;
 import java.util.Random;
 
-import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+@RequestMapping(
+		path = "/",
+		produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class CustomerController {
 
@@ -24,7 +27,7 @@ public class CustomerController {
       
     }
 
-    @RequestMapping("/")
+    @GetMapping
     public String welcome() {
     	
 	    int time = r.nextInt(3000);
