@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
 
     private CustomerRepository customerRepository;
-	//private Meter meter;
 
 	@Autowired
 	public MetricRegistry metricRegistry;
@@ -23,14 +22,12 @@ public class CustomerController {
     @Autowired
     public CustomerController(CustomerRepository customerRepository, MetricRegistry mark) {
       this.customerRepository = customerRepository;
-      //this.meter = mark.meter("name");
       
     }
 
     @RequestMapping("/")
     public String welcome() {
     	metricRegistry.meter("WelcomePageCount").mark();
-    	//meter.mark();
         return "Welcome to this small REST service. It will accept a GET on /list with a request parameter lastName, and a POST to / with a JSON payload with firstName and lastName as values.";
     }
 
