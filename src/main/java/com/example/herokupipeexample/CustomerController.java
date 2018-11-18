@@ -6,6 +6,7 @@ import java.util.Random;
 import com.codahale.metrics.MetricRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(
@@ -22,13 +23,13 @@ public class CustomerController {
 	
     @Autowired
     public CustomerController(CustomerRepository customerRepository, MetricRegistry mark) {
-      this.customerRepository = customerRepository;
-       this.r = new Random();
+    	this.customerRepository = customerRepository;
+    	this.r = new Random();
       
     }
 
-    @GetMapping
-    public String welcome() {
+    @GetMapping()
+    public ResponseEntity<String> welcome() {
     	
 	    int time = r.nextInt(3000);
 	
@@ -36,10 +37,12 @@ public class CustomerController {
 	
 	    try {
 		    sleep(time);
-		    
-		    return "Welcome to this small REST service. It will accept a " +
+		
+		    return ResponseEntity
+				    .status(200)
+				    .body("Welcome to this small REST service. It will accept a " +
 				    "GET on /list with a request parameter lastName, and a " +
-				    "POST to / with a JSON payload with firstName and lastName as values.";
+				    "POST to / with a JSON payload with firstName and lastName as values.");
 		    
 	    } finally {
 		    metricRegistry.meter("WelcomePageCount").mark();
