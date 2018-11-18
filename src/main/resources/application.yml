@@ -7,6 +7,10 @@ spring:
     hibernate:
       ddl-auto: create-drop
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hipernate:
+        temp:
+          temp.use_jdbc_metadata_defaults: false
 
 server:
   port: ${PORT}
