@@ -33,7 +33,7 @@ public class CustomerController {
     	
 	    int time = r.nextInt(3000);
 	
-	    metricRegistry.timer("WelcomePageLoadTimer").time();
+	    //metricRegistry.timer("WelcomePageLoadTimer").time();
 	
 	    try {
 		    sleep(time);
@@ -46,7 +46,7 @@ public class CustomerController {
 		    
 	    } finally {
 		    metricRegistry.meter("WelcomePageCount").mark();
-	    	metricRegistry.timer("WelcomePageLoadTimer").time().stop();
+	    	//metricRegistry.timer("WelcomePageLoadTimer").time().stop();
 	    }
     }
 

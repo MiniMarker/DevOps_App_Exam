@@ -1,5 +1,6 @@
 package com.example.herokupipeexample;
 
+import com.codahale.metrics.MetricAttribute;
 import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.graphite.Graphite;
@@ -16,7 +17,11 @@ import javax.sql.DataSource;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import static com.codahale.metrics.MetricAttribute.*;
 
 @Configuration
 @SpringBootApplication
@@ -60,11 +65,16 @@ public class DemoApplication {
 		//System.out.println("Passed host: " + System.getenv("GRAPHITE_HOST"));
 		//System.out.println("Passed apiKey: " + System.getenv("GRAPHITE_APIKEY"));
 		
+		Set<MetricAttribute> excludeSet = new HashSet<>();
+		excludeSet.add(M1_RATE);
+		excludeSet.add(M15_RATE);
+		
 		GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
-				.prefixedWith(System.getenv("GRAPHITE_APIKEY"))
+				.prefixedWith(System.getenv("HOSTEDGRAPHITE_APIKEY"))
 				.convertRatesTo(TimeUnit.SECONDS)
 				.convertDurationsTo(TimeUnit.MILLISECONDS)
 				.filter(MetricFilter.ALL)
+				.disabledMetricAttributes(excludeSet)
 				.build(graphite);
 		reporter.start(1, TimeUnit.SECONDS);
 		return reporter;
