@@ -62,10 +62,10 @@ public class DemoApplication {
 	
 	@Bean
 	public GraphiteReporter getReporter(MetricRegistry registry) {
-		Graphite graphite = new Graphite(new InetSocketAddress(System.getenv("GRAPHITE_HOST"), 2003));
+		Graphite graphite = new Graphite(new InetSocketAddress(System.getenv("GRAHITE_HOST"), 2003));
 		
-		//System.out.println("Passed host: " + System.getenv("GRAPHITE_HOST"));
-		//System.out.println("Passed apiKey: " + System.getenv("GRAPHITE_APIKEY"));
+		System.out.println("Passed host: " + System.getenv("GRAPHITE_HOST"));
+		System.out.println("Passed apiKey: " + System.getenv("HOSTEDGRAPHITE_APIKEY"));
 		
 		Set<MetricAttribute> excludeSet = new HashSet<>();
 		excludeSet.add(M1_RATE);
