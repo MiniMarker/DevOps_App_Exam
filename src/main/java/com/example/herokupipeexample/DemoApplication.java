@@ -65,14 +65,14 @@ public class DemoApplication {
 		Graphite graphite = new Graphite(new InetSocketAddress(System.getenv("GRAHITE_HOST"), 2003));
 		
 		System.out.println("Passed host: " + System.getenv("GRAPHITE_HOST"));
-		System.out.println("Passed apiKey: " + System.getenv("HOSTEDGRAPHITE_APIKEY"));
+		System.out.println("Passed apiKey: " + System.getenv("GRAHITE_APIKEY"));
 		
 		Set<MetricAttribute> excludeSet = new HashSet<>();
 		excludeSet.add(M1_RATE);
 		excludeSet.add(M15_RATE);
 		
 		GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
-				.prefixedWith(System.getenv("HOSTEDGRAPHITE_APIKEY"))
+				.prefixedWith(System.getenv("GRAHITE_APIKEY"))
 				.convertRatesTo(TimeUnit.SECONDS)
 				.convertDurationsTo(TimeUnit.MILLISECONDS)
 				.filter(MetricFilter.ALL)
