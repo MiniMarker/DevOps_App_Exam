@@ -82,3 +82,5 @@ public class DemoApplication {
 		return reporter;
 	}
 }
+
+//tests
