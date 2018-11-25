@@ -27,11 +27,13 @@ import static com.codahale.metrics.MetricAttribute.*;
 @SpringBootApplication
 public class DemoApplication {
 	
+	/*
 	@Value("${graphite.host}")
 	private String graphiteHost;
 	
 	@Value("${graphite.apiKey}")
 	private String graphiteApiKey;
+	*/
 	
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
