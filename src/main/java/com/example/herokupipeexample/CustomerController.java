@@ -2,16 +2,8 @@ package com.example.herokupipeexample;
 
 import java.util.List;
 import java.util.Random;
-
-import com.codahale.metrics.MetricRegistry;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping(
-		path = "/",
-		produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class CustomerController {
 
@@ -30,8 +22,8 @@ public class CustomerController {
     }
     */
 
-    @GetMapping
-    public ResponseEntity<String> welcome() {
+    @RequestMapping("/")
+    public String welcome() {
     	
 	    int time = r.nextInt(3000);
 	
@@ -40,11 +32,9 @@ public class CustomerController {
 	    try {
 		    sleep(time);
 		
-		    return ResponseEntity
-				    .status(200)
-				    .body("Welcome to this small REST service. It will accept a " +
+		    return "Welcome to this small REST service. It will accept a " +
 				    "GET on /list with a request parameter lastName, and a " +
-				    "POST to / with a JSON payload with firstName and lastName as values.");
+				    "POST to / with a JSON payload with firstName and lastName as values.";
 		    
 	    } finally {
 		    //metricRegistry.meter("WelcomePageCount").mark();
