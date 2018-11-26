@@ -55,6 +55,7 @@ public class DemoApplication {
 				.build();
 	}
 	
+	/*
 	@Bean
 	public MetricRegistry getRegistry() {
 		return new MetricRegistry();
@@ -69,6 +70,7 @@ public class DemoApplication {
 		
 		Set<MetricAttribute> excludeSet = new HashSet<>();
 		excludeSet.add(M1_RATE);
+		excludeSet.add(M5_RATE);
 		excludeSet.add(M15_RATE);
 		
 		GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
@@ -81,6 +83,5 @@ public class DemoApplication {
 		reporter.start(1, TimeUnit.SECONDS);
 		return reporter;
 	}
+	*/
 }
-
-//tests

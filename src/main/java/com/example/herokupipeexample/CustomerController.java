@@ -18,15 +18,17 @@ public class CustomerController {
     private CustomerRepository customerRepository;
 	private Random r;
 
+	/*
 	@Autowired
 	public MetricRegistry metricRegistry;
+	
 	
     @Autowired
     public CustomerController(CustomerRepository customerRepository, MetricRegistry mark) {
     	this.customerRepository = customerRepository;
     	this.r = new Random();
-      
     }
+    */
 
     @GetMapping
     public ResponseEntity<String> welcome() {
@@ -45,7 +47,7 @@ public class CustomerController {
 				    "POST to / with a JSON payload with firstName and lastName as values.");
 		    
 	    } finally {
-		    metricRegistry.meter("WelcomePageCount").mark();
+		    //metricRegistry.meter("WelcomePageCount").mark();
 	    	//metricRegistry.timer("WelcomePageLoadTimer").time().stop();
 	    }
     }
