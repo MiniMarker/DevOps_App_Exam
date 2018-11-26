@@ -5,12 +5,11 @@ spring:
     password: ${JDBC_DATABASE_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+        ddl-auto: create-drop
     properties:
-      hipernate:
-        temp:
-          temp.use_jdbc_metadata_defaults: false
+      hipernate.temp.use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+
 
 server:
   port: ${PORT}
