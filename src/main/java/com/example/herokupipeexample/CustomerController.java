@@ -2,6 +2,8 @@ package com.example.herokupipeexample;
 
 import java.util.List;
 import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,14 +15,15 @@ public class CustomerController {
 	/*
 	@Autowired
 	public MetricRegistry metricRegistry;
+	*/
 	
 	
     @Autowired
-    public CustomerController(CustomerRepository customerRepository, MetricRegistry mark) {
+    public CustomerController(CustomerRepository customerRepository ) { // MetricRegistry mark
     	this.customerRepository = customerRepository;
     	this.r = new Random();
     }
-    */
+    
 
     @RequestMapping("/")
     public String welcome() {
