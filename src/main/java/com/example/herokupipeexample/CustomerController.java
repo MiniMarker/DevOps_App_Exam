@@ -94,7 +94,7 @@ public class CustomerController {
 		this.customerRepository = customerRepository;
 		this.r = new Random();
 		
-		configureMetrics(metricRegistry);
+		//configureMetrics(metricRegistry);
 		
 	}
 	
@@ -116,8 +116,8 @@ public class CustomerController {
 			return "Welcome to this small REST service. It will accept a GET on /list with a request parameter lastName, and a POST to / with a JSON payload with firstName and lastName as values.";
 			
 		} finally {
-			welcomePageCount.mark();
-			//metricRegistry.meter("WelcomePageCount").mark();
+			//welcomePageCount.mark();
+			metricRegistry.meter("WelcomePageCount").mark();
 			//metricRegistry.timer("WelcomePageLoadTimer").time().stop();
 		}
 		
