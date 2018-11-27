@@ -73,8 +73,6 @@ public class DemoApplication {
 		excludeSet.add(M1_RATE);
 		excludeSet.add(M5_RATE);
 		excludeSet.add(M15_RATE);
-		excludeSet.add(P50);
-		excludeSet.add(P75);
 		
 		Graphite graphite = new Graphite(new InetSocketAddress(System.getenv("GRAPHITE_HOST"), 2003));
 		GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
@@ -82,7 +80,7 @@ public class DemoApplication {
 				.convertRatesTo(TimeUnit.SECONDS)
 				.convertDurationsTo(TimeUnit.MILLISECONDS)
 				.filter(MetricFilter.ALL)
-				.disabledMetricAttributes(excludeSet)
+				//.disabledMetricAttributes(excludeSet)
 				.build(graphite);
 		reporter.start(1, TimeUnit.SECONDS);
 		return reporter;
