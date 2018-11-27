@@ -36,6 +36,9 @@ public class DemoApplication {
 	*/
 	
 	public static void main(String[] args) {
+		
+		
+		
 		SpringApplication.run(DemoApplication.class, args);
 	}
 	
@@ -55,7 +58,6 @@ public class DemoApplication {
 				.build();
 	}
 	
-	/*
 	@Bean
 	public MetricRegistry getRegistry() {
 		return new MetricRegistry();
@@ -63,18 +65,18 @@ public class DemoApplication {
 	
 	@Bean
 	public GraphiteReporter getReporter(MetricRegistry registry) {
-		Graphite graphite = new Graphite(new InetSocketAddress(System.getenv("GRAHITE_HOST"), 2003));
 		
 		System.out.println("Passed host: " + System.getenv("GRAPHITE_HOST"));
-		System.out.println("Passed apiKey: " + System.getenv("GRAHITE_APIKEY"));
+		System.out.println("Passed apiKey: " + System.getenv("GRAPHITE_APIKEY"));
 		
 		Set<MetricAttribute> excludeSet = new HashSet<>();
 		excludeSet.add(M1_RATE);
 		excludeSet.add(M5_RATE);
 		excludeSet.add(M15_RATE);
 		
+		Graphite graphite = new Graphite(new InetSocketAddress(System.getenv("GRAPHITE_HOST"), 2003));
 		GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
-				.prefixedWith(System.getenv("GRAHITE_APIKEY"))
+				.prefixedWith(System.getenv("GRAPHITE_APIKEY"))
 				.convertRatesTo(TimeUnit.SECONDS)
 				.convertDurationsTo(TimeUnit.MILLISECONDS)
 				.filter(MetricFilter.ALL)
@@ -83,5 +85,4 @@ public class DemoApplication {
 		reporter.start(1, TimeUnit.SECONDS);
 		return reporter;
 	}
-	*/
 }

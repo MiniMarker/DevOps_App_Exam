@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Random;
 
 
+import com.codahale.metrics.MetricRegistry;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,14 +80,32 @@ public class CustomerController {
 public class CustomerController {
 	
 	private CustomerRepository customerRepository;
+	private Random r;
+	
+	@Autowired
+	public MetricRegistry metricRegistry;
 	
 	public CustomerController(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
+		this.r = new Random();
 	}
 	
 	@RequestMapping("/")
 	public String welcome() {
-		return "Welcome to this small REST service. It will accept a GET on /list with a request parameter lastName, and a POST to / with a JSON payload with firstName and lastName as values.";
+		
+		int time = r.nextInt(3000);
+		
+		try {
+			
+			sleep(time);
+			
+			return "Welcome to this small REST service. It will accept a GET on /list with a request parameter lastName, and a POST to / with a JSON payload with firstName and lastName as values.";
+			
+		} finally {
+			metricRegistry.meter("WelcomePageCount").mark();
+		}
+		
+		
 	}
 	
 	@RequestMapping("/list")
@@ -99,4 +119,12 @@ public class CustomerController {
 		return customerRepository.save(customer);
 	}
 	
+	
+	private void sleep(int x) {
+		try {
+			Thread.sleep(x);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }
