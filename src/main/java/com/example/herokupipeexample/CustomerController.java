@@ -73,7 +73,6 @@ public class CustomerController {
 		    e.printStackTrace();
 	    }
     }
-
 }
 
 */
@@ -84,8 +83,8 @@ public class CustomerController {
 	private CustomerRepository customerRepository;
 	private Random r;
 	
-	private Meter welcomePageCount;
-	private Timer welcomePageTimer;
+	//private Meter welcomePageCount;
+	//private Timer welcomePageTimer;
 	
 	@Autowired
 	public MetricRegistry metricRegistry;
@@ -98,16 +97,17 @@ public class CustomerController {
 		
 	}
 	
+	/*
 	private void configureMetrics(MetricRegistry metricRegistry) {
 		welcomePageCount = metricRegistry.meter(MetricRegistry.name("welcomePageCount"));
 		welcomePageTimer = metricRegistry.timer("welcomePageTimer");
 	}
+	*/
 	
 	@RequestMapping("/")
 	public String welcome() {
 		
 		int time = r.nextInt(3000);
-		//metricRegistry.timer("WelcomePageLoadTimer").time();
 		
 		try {
 			
@@ -118,7 +118,6 @@ public class CustomerController {
 		} finally {
 			//welcomePageCount.mark();
 			metricRegistry.meter("WelcomePageCount").mark();
-			//metricRegistry.timer("WelcomePageLoadTimer").time().stop();
 		}
 		
 		
