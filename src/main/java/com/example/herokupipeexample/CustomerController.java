@@ -94,6 +94,7 @@ public class CustomerController {
 	public String welcome() {
 		
 		int time = r.nextInt(3000);
+		metricRegistry.timer("WelcomePageLoadTimer").time();
 		
 		try {
 			
@@ -103,6 +104,7 @@ public class CustomerController {
 			
 		} finally {
 			metricRegistry.meter("WelcomePageCount").mark();
+			metricRegistry.timer("WelcomePageLoadTimer").time().stop();
 		}
 		
 		
