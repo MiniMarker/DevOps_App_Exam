@@ -73,6 +73,13 @@ public class DemoApplication {
 		excludeSet.add(M1_RATE);
 		excludeSet.add(M5_RATE);
 		excludeSet.add(M15_RATE);
+		excludeSet.add(P50);
+		excludeSet.add(P75);
+		excludeSet.add(P95);
+		excludeSet.add(P98);
+		excludeSet.add(P99);
+		excludeSet.add(P999);
+		excludeSet.add(STDDEV);
 		
 		Graphite graphite = new Graphite(new InetSocketAddress(System.getenv("GRAPHITE_HOST"), 2003));
 		GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
