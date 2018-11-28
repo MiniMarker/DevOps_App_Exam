@@ -24,13 +24,14 @@ public class CustomerController {
 	private Random r;
 	private final Counter pendingJobs;
 	
-	@Autowired
-	public MetricRegistry metricRegistry;
+	private MetricRegistry metricRegistry;
 	
-	public CustomerController(CustomerRepository customerRepository) {
+	@Autowired
+	public CustomerController(CustomerRepository customerRepository, MetricRegistry metricRegistry) {
 		this.customerRepository = customerRepository;
 		this.r = new Random();
-		pendingJobs = metricRegistry.counter(name(Customer.class, "PostRequestCounter"));
+		this.metricRegistry = metricRegistry;
+		this.pendingJobs = metricRegistry.counter(name(Customer.class, "PostRequestCounter"));
 	}
 	
 	
