@@ -5,7 +5,6 @@ import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.graphite.Graphite;
 import com.codahale.metrics.graphite.GraphiteReporter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -27,18 +26,7 @@ import static com.codahale.metrics.MetricAttribute.*;
 @SpringBootApplication
 public class DemoApplication {
 	
-	/*
-	@Value("${graphite.host}")
-	private String graphiteHost;
-	
-	@Value("${graphite.apiKey}")
-	private String graphiteApiKey;
-	*/
-	
 	public static void main(String[] args) {
-		
-		
-		
 		SpringApplication.run(DemoApplication.class, args);
 	}
 	
@@ -80,7 +68,7 @@ public class DemoApplication {
 				.convertRatesTo(TimeUnit.SECONDS)
 				.convertDurationsTo(TimeUnit.MILLISECONDS)
 				.filter(MetricFilter.ALL)
-				//.disabledMetricAttributes(excludeSet)
+				.disabledMetricAttributes(excludeSet)
 				.build(graphite);
 		reporter.start(1, TimeUnit.SECONDS);
 		return reporter;

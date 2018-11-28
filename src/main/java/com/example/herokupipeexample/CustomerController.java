@@ -107,7 +107,7 @@ public class CustomerController {
 	@RequestMapping("/")
 	public String welcome() {
 		
-		int time = r.nextInt(3000);
+		int time = r.nextInt(1500);
 		
 		try {
 			
